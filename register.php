@@ -231,19 +231,15 @@ form{
 </section>    
 
 
-
-
-
-    <section class="contact">
+<section class="contact" id="">
         <div class="contact-info">
             <div class="first-info">
-                <a href="" class="logo">
-                    <h2>TicketBritte</h2>
-                </a>
-                <p>12333 fasdfvg fvgvfds.\ ooor</p>
-                <p>0981234543</p>
-                <p>fvgvvfds@vgvmhsd.\c+omh</p>
-                <div class="social-icon">
+            <a href="" class="logo">
+            <h2>TicketBrite</h2></a>
+                <p>Oyo State Nigeria</p>
+                <p>08052148610</p>
+                <p>ajaiyeobajibola@gmail.com</p>
+            <div class="social-icon">
                     <a href=""><i class="fa-brands fa-facebook"></i></a>
                     <a href=""><i class="fa-brands fa-twitter"></i></a>
                     <a href=""><i class="fa-brands fa-instagram"></i></a>
