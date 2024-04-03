@@ -43,14 +43,18 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </header>
 
     <section>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+        <div class="container">
+        <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Proceed to checkout!</h1>
     <p>
         <div class="form-group">
-             <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+             <a href="reset-password.php" class="btn btn-primary">Reset Your Password</a>
         <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-        </div>
+      
+    </div>
        
     </p>
+        </div>
+
     </section>
 
 
@@ -61,9 +65,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <a href="" class="logo">
                     <h2>TicketBritte</h2>
                 </a>
-                <p>12333 fasdfvg fvgvfds.\ ooor</p>
-                <p>0981234543</p>
-                <p>fvgvvfds@vgvmhsd.\c+omh</p>
+                <p>Oyo State Nigeria</p>
+                <p>08052148610</p>
+                <p>ajaiyeobajibola@gmail.com</p>
                 <div class="social-icon">
                     <a href=""><i class="fa-brands fa-facebook"></i></a>
                     <a href=""><i class="fa-brands fa-twitter"></i></a>

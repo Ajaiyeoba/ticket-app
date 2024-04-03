@@ -308,6 +308,40 @@ header .sticky{
     transition: all .42s ease;
 }
 
+/* Modal */
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #0000ee;
+}
+.modal-content{
+    background-color: #551a8b;
+    margin: 15% auto;
+    width: 80%;
+}
+
+.close{
+    color: #aaa;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* Responsiveness */
 
 @media (max-width: 890px) {
     header{
