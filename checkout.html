@@ -34,7 +34,43 @@
     </header>
 
     <section>
-
+        <div class="container">
+            <div class="form-wrapper cf">
+              <div class="five col">
+                <div class="title">
+                  <h2>Ticket Checkout</h2>
+               
+                  <!-- <p class="item" name="name">iPhone</p>
+                  <p class="date" name="date" >£699.99</p> -->
+                </div>
+              </div>
+              <div class="seven col" id="ticketCheckoutForm">
+                <form class="form" id="checkoutForm">
+                <label for="name">Event:</label>
+                  <input type="text" name="name" id="name" placeholder="Name" readonly>
+                  <label for="date">Date: </label>
+                  <input type="text" name="date" id="date" placeholder="Date" readonly>
+                 
+                    <div class="edate">
+                      <p for="ticketType">Ticket Type:</p>
+                      <div class="select-wrapper">
+                      <select name="ticketType" id="ticketType">
+                      <option value="regular">Regular</option>
+                      <option value="vip">VIP</option>
+                      <option value="premium">Premium</option>
+                      </select>
+                    </div>
+                      <p for="quantity">Quantity:</p>
+                      <input type="number" id="quantity" name="quantity" min="1" value="1">
+                    </div>
+                  </div>
+                  <div class="submit-wrapper">
+                    <input class="submit" type="submit" onclick="calculateTotal()" value="Proceed to Checkout">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
     </section>
 
     <section class="contact">
