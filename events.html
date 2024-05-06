@@ -65,7 +65,7 @@
         <!-- <div id="eventList"></div> -->
 
     </section>
-    <!-- <div id="ticketCheckoutForm" style="display: none;">
+    <div id="ticketCheckoutForm" style="display: none;">
         <h2>Ticket Checkout</h2>
         <form id="checkoutForm">
             <label for="name">Event:</label>
@@ -83,8 +83,9 @@
             <button type="button" onclick="calculateTotal()">Proceed To Checkout</button>
         </form>
         <div id="totalPrice"></div>
-    </div> -->
+    </div>
     
+
     <section class="contact">
         <div class="contact-info">
             <div class="first-info">
@@ -138,5 +139,23 @@
 
 
     <script src="app.js"></script>
+    <script>
+        function buyTickets(name, date) {
+        const eventNameField = document.getElementById('name');
+        const eventDateField = document.getElementById('date');
+    
+        console.log(eventNameField); // Check if eventNameField is null
+        console.log(eventDateField); // Check if eventDateField is null
+    
+        if (eventNameField && eventDateField) { // Check if both fields are not null
+            eventNameField.value = name;
+            eventDateField.value = date;
+    
+            document.getElementById('ticketCheckoutForm').style.display = 'block';
+        } else {
+            console.error("One or both of the fields couldn't be found in the DOM.");
+        }
+    }
+    </script>
 </body>
 </html>

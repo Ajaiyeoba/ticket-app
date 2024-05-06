@@ -647,3 +647,59 @@ input, select{
     background-color: #fff;
     color: #2c3e50;
   }
+
+  #ticketCheckoutForm {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* overflow: auto; Enable overflow */
+    max-height: 80vh; /* Set max height to allow scrolling */
+}
+
+#ticketCheckoutForm h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#checkoutForm label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#checkoutForm input[type="text"],
+#checkoutForm input[type="number"],
+#checkoutForm select {
+    width: calc(100% - 12px);
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#checkoutForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#checkoutForm button:hover {
+    background-color: #0056b3;
+}
+
+#totalPrice {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+}
