@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,6 @@
 <script src="https://kit.fontawesome.com/bf172a1461.js" crossorigin="anonymous"></script>
 </head>
 <body>
-   
-
     <header>
         <a href="" class="logo">
             <h2>TicketBritte </h2> 
@@ -21,73 +19,32 @@
         <ul class="navmenu">
             <li><a href="index.html">Home</a></li>            
             <li><a href="events.html">Concerts</a></li>
-            <li><a href="">About</a></li>            
+            <li><a hraef="">About</a></li>            
             <li><a href="">Contact</a></li>
-
         </ul>
 
         <div class="nav-icon">
             <a href=""><i class="fa-solid fa-magnifying-glass"></i>a</a>
             <a href="register.php"><i class="fa-solid fa-user"></i>b</a>
             <a href=""><i class="fa-solid fa-film"></i>c</a>
-
            <div  class="fa-solid fa-bars" id="menu-icon">H</div>
         </div>
     </header>
 
-    <section class="main-home">
-        <div class="main-text">
-            <h5> Your Dynamic </h5>
-            <h1>Ordering System  <br></h1>
-            <h4>Services at your Disposal</h4>
-            <p>Welcome to TicketBrite, your one-stop solution for all your ticket ordering needs! Whether you're planning a night out at the theater, attending a sporting event, or catching your favorite band in concert, TicketBrite has you covered.</p>
-            <a href="register.php" class="main-btn">Get your Ticket  <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <div class="down-arrow">
-            <a href="" class="down"> <i class="fa-solid fa-arrow-down"></i></a>
-        </div>
-    </section>
-
-
-    <section class="trending" id="trending">
-        <div class="center-text">
-            <h2>Trending  <span>Events</span>
-            </h2>
-
-            <div class="products" id="eventList">
-          
-            </div>
-        </div>
-    
-
-       
-        <!-- <div id="ticketCheckoutForm" style="display: none;">
-            <h2>Ticket Checkout</h2>
-            <form id="checkoutForm">
-                <label for="name">Event:</label>
-                <input type="text" id="name" name="name" readonly>
-                <label for="date">Date:</label>
-                <input type="text" id="date" name="date" readonly>
-                <label for="ticketType">Ticket Type:</label>
-                <select id="ticketType" name="ticketType">
-                    <option value="regular">Regular</option>
-                    <option value="vip">VIP</option>
-                    <option value="premium">Premium</option>
-                </select>
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1">
-                <button type="button" onclick="calculateTotal()">Proceed To Checkout</button>
+    <section>
+        <div class="purchase-form">
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for=""></label>
+                </div>
             </form>
-            <div id="totalPrice"></div>
-        </div> -->
-   
-    
+        </div>
     </section>
+
 
     <section class="contact">
         <div class="contact-info">
-            <div class="first-info">
+            <div class ="first-info">
                 <a href="" class="logo">
                     <h2>TicketBritte</h2>
                 </a>
@@ -141,4 +98,32 @@
     </div>
     <script src="app.js"> </script> 
 </body>
-</html>
+</html> -->
+
+<?php
+$to = 'maryjane@email.com';
+$subject = 'Marriage Proposal';
+$from = 'peterparker@email.com';
+ 
+// To send HTML mail, the Content-type header must be set
+$headers  = 'MIME-Version: 1.0' . "\r\n";
+$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+ 
+// Create email headers
+$headers .= 'From: '.$from."\r\n".
+    'Reply-To: '.$from."\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+ 
+// Compose a simple HTML email message
+$message = '<html><body>';
+$message .= '<h1 style="color:#f40;">Hi Jane!</h1>';
+$message .= '<p style="color:#080;font-size:18px;">Will you marry me?</p>';
+$message .= '</body></html>';
+ 
+// Sending email
+if(mail($to, $subject, $message, $headers)){
+    echo 'Your mail has been sent successfully.';
+} else{
+    echo 'Unable to send email. Please try again.';
+}
+?>

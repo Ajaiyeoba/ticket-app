@@ -1,0 +1,322 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Checkout Form</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        #ticketCheckoutForm {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: auto; /* Enable overflow */
+            max-height: 80vh; /* Set max height to allow scrolling */
+        }
+
+        #ticketCheckoutForm h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #checkoutForm label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #checkoutForm input[type="text"],
+        #checkoutForm input[type="number"],
+        #checkoutForm select {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #checkoutForm button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #checkoutForm button:hover {
+            background-color: #0056b3;
+        }
+
+        #totalPrice {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="ticketCheckoutForm">
+    <h2>Ticket Checkout</h2>
+    <form id="checkoutForm">
+        <label for="name">Event:</label>
+        <input type="text" id="name" name="name" readonly>
+        <label for="date">Date:</label>
+        <input type="text" id="date" name="date" readonly>
+        <label for="ticketType">Ticket Type:</label>
+        <select id="ticketType" name="ticketType">
+            <option value="regular">Regular</option>
+            <option value="vip">VIP</option>
+            <option value="premium">Premium</option>
+        </select>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1">
+        <button type="button" onclick="calculateTotal()">Proceed To Checkout</button>
+    </form>
+    <div id="totalPrice"></div>
+</div>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Checkout Form</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        #ticketCheckoutForm {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* overflow: auto; Enable overflow */
+            max-height: 80vh; /* Set max height to allow scrolling */
+        }
+
+        #ticketCheckoutForm h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #checkoutForm label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #checkoutForm input[type="text"],
+        #checkoutForm input[type="number"],
+        #checkoutForm select {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #checkoutForm button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #checkoutForm button:hover {
+            background-color: #0056b3;
+        }
+
+        #totalPrice {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="eventList">
+    <!-- Your event listing content here -->
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const eventList = document.getElementById('eventList');
+    const events = [ 
+        {
+            name : 'Fire and Sand',
+            date : '12-23-2024',
+            image : 'ass/c1kpcehqivz3scqmkzuo.webp',
+            price: {
+                regular: 2000,
+                vip: 15000,
+                premium: 30000
+            }
+        },
+        {
+            name : 'Yhemo Lee',
+            date : '12-23-2024',
+            image : 'ass/jr3ilqkz1ufildgmtukx.webp',
+            price: {
+                regular: 2000,
+                vip: 15000,
+                premium: 30000
+            }
+        },
+        {
+            name : 'Abarie.com',
+            date : '12-23-2024',
+            image : 'ass/2272dab8-fea5-4547-b1b6-407f0fb32f41.jpeg',
+            price: {
+                regular: 2000,
+                vip: 15000,
+                premium: 30000
+            }
+        },
+        {
+            name : 'Soycity',
+            date : '12-23-2024',
+            image : 'ass/mlgfp86j5jmghhkxexkz.jpg.webp',
+            price: {
+                regular: 2000,
+                vip: 15000,
+                premium: 30000
+            }
+        },
+        {
+            name : 'Destalker Laughter Crusade',
+            date : '12-23-2024',
+            image : 'ass/IMG_2233-768x888.jpeg',
+            price: {
+                regular: 2000,
+                vip: 15000,
+                premium: 30000
+            }
+        },
+        {
+            name : 'High Voltage Doings',
+            date : '12-23-2024',
+            image : 'ass/IMG_0633-768x960.jpeg',
+            price: {
+                regular: 2000,
+                vip: 15000,
+                premium: 22,
+            }
+        },{
+            name : 'SDLiC',
+            date : '12-23-2024',
+            image : 'ass/D9EEBD20-C08A-49B0-A40F-A565DFDA380E.jpeg',
+            price: {
+                regular: 2000,
+                vip: 15000,
+            }
+        },
+        {
+            name : 'AY Live',
+            date : '12-23-2024',
+            image : 'ass/d83e177c-be90-49e5-8e93-a65630bbcb99-768x481.jpeg',
+            price: {
+                regular: 2000,
+                vip: 15000,
+                premium: 30000
+            }
+        }
+     ];
+
+    function displayEvents() {
+        eventList.innerHTML = '';
+        events.forEach(event => {
+            const eventElement = document.createElement('div');
+            eventElement.classList.add('row');
+            eventElement.innerHTML = `
+                <img src="${event.image}" alt="${event.name}">
+                <div class="product-text">
+                    <h5>Sale</h5>
+                </div>
+                <div class="price">
+                    <h4>${event.name}</h4> 
+                    <p>Date: ${event.date}</p>
+                    <h4>Price: Regular ${event.price.regular}, VIP ${event.price.vip}, Premium ${event.price.premium}</h4>
+                </div>
+                <button class="orderBtn" onclick="buyTickets('${event.name}', '${event.date}')">Buy Tickets</button>
+            `;
+            eventList.appendChild(eventElement);
+        });
+    }
+
+    displayEvents();
+});
+
+    // Show ticket checkout form for the selected event
+    function buyTickets(name, date) {
+        const eventNameField = document.getElementById('name');
+        const eventDateField = document.getElementById('date');
+
+        eventNameField.value = name;
+        eventDateField.value = date;
+
+        document.getElementById('ticketCheckoutForm').style.display = 'block';
+    }
+</script>
+
+<div id="ticketCheckoutForm">
+    <h2>Ticket Checkout</h2>
+    <form id="checkoutForm">
+        <label for="name">Event:</label>
+        <input type="text" id="name" name="name" readonly>
+        <label for="date">Date:</label>
+        <input type="text" id="date" name="date" readonly>
+        <label for="ticketType">Ticket Type:</label>
+        <select id="ticketType" name="ticketType">
+            <option value="regular">Regular</option>
+            <option value="vip">VIP</option>
+            <option value="premium">Premium</option>
+        </select>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1">
+        <button type="button" onclick="calculateTotal()">Proceed To Checkout</button>
+    </form>
+    <div id="totalPrice"></div>
+</div>
+
+</body>
+</html>
