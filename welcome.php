@@ -35,25 +35,19 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <li><a href="">Contact</a></li>
         </ul>
         <div class="nav-icon">
-            <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-            <a href=""><i class="fa-solid fa-user"></i></a>
-            <a href=""><i class="fa-solid fa-film"></i></a>
+            <a href="logout.php"><i class="fa-solid fa-user"></i>Logout</a>
            <div  class="fa-solid fa-bars" id="menu-icon"></div>
         </div>
     </header>
 
     <section>
-        <div class="container">
-        <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Proceed to checkout!</h1>
-    <p>
-        <div class="form-group">
-             <a href="reset-password.php" class="btn btn-primary">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-      
-    </div>
-       
-    </p>
+        <div class="container"> 
+        <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["fullname"]); ?></b>. </h1>
+   
         </div>
+
+
+            
 
     </section>
 

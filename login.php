@@ -1,80 +1,69 @@
 <?php
-// Initialize the session
-session_start();
- 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
-    exit;
-}
- 
-// Include config file
 require_once "config.php";
- 
-// Define variables and initialize with empty values
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
- 
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
-    } else{
-        $username = trim($_POST["username"]);
+
+// Initialize variables
+$email = $password = "";
+$email_err = $password_err = "";
+
+// Process login form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate email
+    if (empty(trim($_POST["email"]))) {
+        $email_err = "Please enter your email.";
+    } else {
+        $email = trim($_POST["email"]);
     }
-    
-    // Check if password is empty
-    if(empty(trim($_POST["password"]))){
+
+    // Validate password
+    if (empty(trim($_POST["password"]))) {
         $password_err = "Please enter your password.";
-    } else{
+    } else {
         $password = trim($_POST["password"]);
     }
-    
-    // Validate credentials
-    if(empty($username_err) && empty($password_err)){
+
+    // Check input errors before login
+    if (empty($email_err) && empty($password_err)) {
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
-        
-        if($stmt = mysqli_prepare($link, $sql)){
+        $sql = "SELECT id, email, password FROM users WHERE email = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
-            
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
+
             // Set parameters
-            $param_username = $username;
-            
+            $param_email = $email;
+
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if (mysqli_stmt_execute($stmt)) {
                 // Store result
                 mysqli_stmt_store_result($stmt);
-                
-                // Check if username exists, if yes then verify password
-                if(mysqli_stmt_num_rows($stmt) == 1){                    
+
+                // Check if email exists, then verify password
+                if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
-                    if(mysqli_stmt_fetch($stmt)){
-                        if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
+                    mysqli_stmt_bind_result($stmt, $id, $email, $stored_password);
+                    if (mysqli_stmt_fetch($stmt)) {
+                        // Compare plain text passwords
+                        if ($password === $stored_password) {
+                            // Password is correct, start a new session
                             session_start();
-                            
+
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
-                            
+                            $_SESSION["fullname"] = $fullname;
                             // Redirect user to welcome page
                             header("location: welcome.php");
-                        } else{
-                            // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password.";
+                        } else {
+                            // Display an error message if password is not valid
+                            $password_err = "The password you entered is not valid.";
                         }
                     }
-                } else{
-                    // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password.";
+                } else {
+                    // Display an error message if email doesn't exist
+                    $email_err = "No account found with that email.";
                 }
-            } else{
+            } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
@@ -82,10 +71,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
-    
+
     // Close connection
     mysqli_close($link);
 }
+?>
+
 ?>
  
 <!DOCTYPE html>
@@ -101,56 +92,78 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="style.css">
    <style>
-        .container{
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    width: 400px;
+        .formbold-main-wrapper{
+    display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 48px;
 }
-
-.header{
-    border-bottom: 1px solid #f0f0f0;
-    background-color: #fff;
-    padding: 20px 40px;
-}
-form{
-    padding: 30px 40px;
-}
-.form-group{
-    margin-bottom: 10px;
-    padding-bottom: 20px;
-    position: relative;
-}
-.form-group label{
-    display: inline-block;
-    margin-bottom: 5px;
-    font-family: cursive;
-}
-.form-group input{
-    border: 2px solid #f0f0f0;
-     border-radius: 4px;
-    display: block;
-    font-size: 14px;
-    padding: 10px;
-    width: 100%; 
-}
-.form-group input:focus{
-    outline: 0;
-    border-color: #777;
-}
-.btn{
-    background: #551a8b;
-    border: 2px solid #8e44ad;
-    border-radius: 4px;
-    color: #fff;
-    display: block;
-    font-family: cursive;
-    font-size: 16px;
-    padding: 10px;
-    margin-top: 20px;
-    width: 100%;
-}
+.formbold-form-wrapper {
+          margin: 0 auto;
+          max-width: 570px;
+          width: 100%;`
+          background: white;
+          padding: 40px;
+        }
+        .formbold-form-title {
+          margin-bottom: 30px;
+        }
+        .formbold-form-title h2 {
+          font-weight: 600;
+          font-size: 28px;
+          line-height: 34px;
+          text-align: center;
+          color: #04b01d
+        }
+        .formbold-input-flex {
+          display: flex;
+          gap: 20px;
+          margin-bottom: 15px;
+        }
+        .formbold-input-flex > div {
+          width: 50%;
+        }
+        .formbold-form-input {
+          text-align: left;
+          width: 100%;
+          padding: 13px 22px;
+          border-radius: 5px;
+          border: 1px solid #dde3ec;
+          background: #ffffff;
+          font-weight: 500;
+          font-size: 16px;
+          color: #536387;
+          outline: none;
+          resize: none;
+        }
+        .formbold-form-input:focus {
+          border-color: #6a64f1;
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-form-label {
+          color: #551a8b;
+          font-size: 14px;
+          line-height: 24px;
+          display: block;
+          margin-bottom: 10px;
+        }
+        .formbold-btn {
+          font-size: 16px;
+          border-radius: 5px;
+          padding: 14px 25px;
+          border: none;
+          font-weight: 500;
+          background-color: #551a8b;
+          color: white;
+          cursor: pointer;
+          margin-top: 25px;
+        }
+        .formbold-btn:hover {
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-mb-3 {
+          margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -170,46 +183,55 @@ form{
 
         <div class="nav-icon">
             <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-            <a href=""><i class="fa-solid fa-user"></i></a>
-            <a href=""><i class="fa-solid fa-film"></i></a>
-
            <div  class="fa-solid fa-bars" id="menu-icon"></div>
         </div>
     </header>
 
 
     <section class="">
-        <div class="container">
+    <div class="formbold-main-wrappper">
+        <div class="formbold-form-wrapper">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <div class="formbold-form-title">
+                    <h2 style="">Login</h2>
 
-        <div class="header">
-        <h2>Login</h2>
-        </div>
-        <p>Please fill in your credentials to login.</p>
-
-        <?php 
-        if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }        
-        ?>
-
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
-            </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
-        </form>
-    
     </div>
+
+    <div class="formbold-input-flex">
+    <label for="staff_id" class="formbold-form-label">
+                  email
+                </label>
+                <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    class="formbold-form-input <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>"  value="<?php echo $email; ?>"
+                />
+                <span class="invalid-feedback" style="display: none;" ><?php echo $fullname_err; ?></span>
+    </div>
+
+    <div class="formbold-input-flex">
+            
+                <label for="password" class="formbold-form-label">
+                  Password
+                </label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your Password"
+                    class="formbold-form-input  <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>"
+                />
+                <span class="invalid-feedback" style="display: none;" ><?php echo $password_err; ?></span>
+              </div>
+
+<input type="submit" name="submit" class="formbold-btn" value="Login">
+    <p>Already Have an Account? <a href="login.php">Login</a></p>
+</div>
+
+</div>
+
     </section>
 
 
